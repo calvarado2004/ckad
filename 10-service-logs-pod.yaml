@@ -1,0 +1,17 @@
+# kubectl -n pluto run project-plt-6cc-api --image=nginx:1.17.3-alpine --labels project=plt-6cc-api
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    project: plt-6cc-api
+  name: project-plt-6cc-api
+  namespace: pluto
+spec:
+  containers:
+  - image: nginx:1.17.3-alpine
+    name: project-plt-6cc-api
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
