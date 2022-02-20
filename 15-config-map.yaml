@@ -1,3 +1,4 @@
+#kubectl -n moon create configmap configmap-web-moon-html --from-file=index.html=/opt/course/15/web-moon.html
 apiVersion: v1
 data:
   index.html: |     # notice the key index.html, this will be the filename when mounted
