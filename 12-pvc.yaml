@@ -1,0 +1,16 @@
+# 12_pvc.yaml
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: earth-project-earthflower-pvc
+  namespace: earth
+spec:
+  accessModes:
+    - ReadWriteOnce
+  selector:
+    matchLabels:
+      pv: "earth2g"
+  storageClassName: ""
+  resources:
+    requests:
+     storage: 2Gi

@@ -1,0 +1,14 @@
+# 12_pv.yaml
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: earth-project-earthflower-pv
+  labels:
+   pv: earth2g
+spec:
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/Volumes/Data"
