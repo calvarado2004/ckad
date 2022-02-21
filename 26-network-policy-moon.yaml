@@ -19,7 +19,7 @@ spec:
     command: ["/bin/sh", "-c", "while true; do sleep 3600; done"]
   dnsPolicy: ClusterFirst
   restartPolicy: Always
-# kubectl exec -it pod/busybox-curl-pod -n moon -- /bin/sh
+# kubectl exec -it pod/busybox-moon-pod -n moon -- /bin/sh
 # curl nginx-srv.earth.svc.cluster.local
 ---
 # Allow communication from the Moon to Earth only on port 80/TCP using the namespace name

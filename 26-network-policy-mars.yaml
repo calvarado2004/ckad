@@ -19,6 +19,6 @@ spec:
     command: ["/bin/sh", "-c", "while true; do sleep 3600; done"]
   dnsPolicy: ClusterFirst
   restartPolicy: Always
-# kubectl exec -it pod/busybox-curl-pod -n mars -- /bin/sh
+# kubectl exec -it pod/busybox-mars-pod -n mars -- /bin/sh
 # curl nginx-srv.earth.svc.cluster.local
 # This attempt will fail from Mars to Earth
