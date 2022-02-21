@@ -1,0 +1,24 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: mars
+  labels:
+    name: mars
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: busybox-curl
+  name: busybox-mars-pod
+  namespace: mars
+spec:
+  containers:
+  - image: radial/busyboxplus:curl
+    name: busybox-mars
+    command: ["/bin/sh", "-c", "while true; do sleep 3600; done"]
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+# kubectl exec -it pod/busybox-curl-pod -n mars -- /bin/sh
+# curl nginx-srv.earth.svc.cluster.local
+# This attempt will fail from Mars to Earth

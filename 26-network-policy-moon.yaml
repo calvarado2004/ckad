@@ -1,0 +1,41 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: moon
+  labels:
+    name: moon
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: busybox-curl
+  name: busybox-moon-pod
+  namespace: moon
+spec:
+  containers:
+  - image: radial/busyboxplus:curl
+    name: busybox-moon
+    command: ["/bin/sh", "-c", "while true; do sleep 3600; done"]
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+# kubectl exec -it pod/busybox-curl-pod -n moon -- /bin/sh
+# curl nginx-srv.earth.svc.cluster.local
+---
+# Allow communication from the Moon to Earth only on port 80/TCP using the namespace name
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-earth-moon-port80
+  namespace: earth
+spec:
+  podSelector:
+    matchLabels:
+      network-policy: secured-earth
+  ingress:
+  - ports:
+    - port: 80
+    from:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: moon 

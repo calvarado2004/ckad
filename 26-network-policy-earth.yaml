@@ -1,0 +1,52 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: earth
+  labels:
+    name: earth
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: nginx
+    network-policy: secured-earth
+  name: nginx-pod
+  namespace: earth
+spec:
+  containers:
+  - image: nginx
+    name: nginx-earth
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+---
+# Service nginx-srv.earth.svc.cluster.local
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: nginx
+  name: nginx-srv
+  namespace: earth
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: nginx
+---
+#Disable all communication to/from the pods with the label secured-earth
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: secured-earth
+  namespace: earth
+spec:
+  podSelector:
+    matchLabels:
+      network-policy: secured-earth
+  policyTypes:
+  - Ingress
+  - Egress
