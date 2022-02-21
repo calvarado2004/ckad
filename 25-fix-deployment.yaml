@@ -1,0 +1,30 @@
+# k -n earth edit deploy earth-3cc-web
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+...
+  generation: 3                     # there have been rollouts
+  name: earth-3cc-web
+  namespace: earth
+...
+spec:
+...
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        id: earth-3cc-web
+    spec:
+      containers:
+      - image: nginx:1.16.1-alpine
+        imagePullPolicy: IfNotPresent
+        name: nginx
+        readinessProbe:
+          failureThreshold: 3
+          initialDelaySeconds: 10
+          periodSeconds: 20
+          successThreshold: 1
+          tcpSocket:
+            port: 82                # this port doesn't seem to be right, should be 80
+          timeoutSeconds: 1
+...

@@ -1,0 +1,19 @@
+# kubectl -n sun expose deployment sunny --name sun-srv --port 9999 --target-port 80
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: sunny
+  name: sun-srv
+spec:
+  ports:
+  - port: 9999
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: sunny
+status:
+  loadBalancer: {}
+
+# kubectl run tmp --restart=Never --rm -i --image=nginx:alpine -- curl -m 5 sun-srv.sun:9999
